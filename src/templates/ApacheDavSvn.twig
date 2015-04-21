@@ -1,0 +1,17 @@
+{% for location in locations %}
+<Location "{{ location.getLocation() }}" >
+
+    DAV svn
+    SVNParentPath "{{ location.SVNParentPath }}"
+    SVNListParentPath On
+{% if (location.isProtected()) %}
+
+    AuthType Basic
+    AuthName "{{ location.authName }}"
+    AuthUserFile {{ location.authUserFile }}
+    Require valid-user
+{% endif %}
+
+</Location>
+
+{% endfor %}
