@@ -21,10 +21,14 @@ class SvnDirectoryParser
     /** @var array */
     private $rootRepositoryDirectories = array();
 
-    public function __construct( $dir = '', Filesystem $fileSystem )
+    /** @var bool */
+    private $includeRootRepositories;
+
+    public function __construct( $dir = '', Filesystem $fileSystem, $includeRootRepositories = false )
     {
-        $this->fileSystem = $fileSystem;
-        $this->dir        = $this->validateDirectory( $dir );
+        $this->fileSystem               = $fileSystem;
+        $this->dir                      = $this->validateDirectory( $dir );
+        $this->includeRootRepositories  = (bool) $includeRootRepositories;
     }
 
     /**
@@ -99,15 +103,15 @@ class SvnDirectoryParser
                     $tmp['isRepository'] = true;
                     $this->repositoriesFound++;
 
-                    // Repositories in the root dir are handled correctly and do not require config
-                    /*if ( $depth < 1 )
+                    // Use the -i flag to enable this, testing shows it is not required.
+                    if ( $this->includeRootRepositories === true && $depth < 1 )
                     {
                         $svnLocation                        = new SvnLocation();
                         $svnLocation->location              = $file;
                         $svnLocation->SVNParentPath         = $initDir . DIRECTORY_SEPARATOR . $file;
                         $this->rootRepositoryDirectories[]  = $svnLocation;
                         unset($svnLocation);
-                    }*/
+                    }
 
                 }else{
                     $tmp['children']                    = $children;

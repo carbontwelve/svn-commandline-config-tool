@@ -29,10 +29,10 @@ class SvnIdentifyCommand extends BaseCommand
                 'Name of the environment variable where we can find your root svn directory'
             )
             ->addOption(
-                'yell',
-                null,
+                'includeRootRepository',
+                'i',
                 InputOption::VALUE_NONE,
-                'If set, the task will yell in uppercase letters'
+                'If set, the command will include root repositories'
             );
     }
 
@@ -123,7 +123,7 @@ class SvnIdentifyCommand extends BaseCommand
     private function generateSvnDirectoryParser( $dir )
     {
         try{
-            return new SvnDirectoryParser( $dir, new Filesystem() );
+            return new SvnDirectoryParser( $dir, new Filesystem(), $this->input->getOption('includeRootRepository') );
         }
         catch ( SvnDirectoryNotFoundException $err )
         {
