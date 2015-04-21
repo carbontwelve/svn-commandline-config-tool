@@ -26,6 +26,11 @@ abstract class BaseCommand extends Command
         $this->output->writeln('<error>[!]</error> ' . $text);
     }
 
+    /**
+     * @param string $text
+     * @param int $code
+     * @throws ExitException
+     */
     protected function writeQuitError( $text, $code = 1 )
     {
         $this->writeError($text, true);
@@ -34,12 +39,20 @@ abstract class BaseCommand extends Command
         throw new ExitException($text, $code);
     }
 
+    /**
+     * @param string $text
+     */
     protected function writeDebug( $text )
     {
         if ( $this->output->isDebug() )
         $this->output->writeln('<info>[+]</info> ' . $text);
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->input  = $input;
