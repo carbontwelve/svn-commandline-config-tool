@@ -20,5 +20,6 @@
     "symfony/filesystem": "2.*",
     "twig/twig": "~1.0"
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "bin": ["svn-config-tool"]
 }

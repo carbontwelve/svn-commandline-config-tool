@@ -1,0 +1,1 @@
+php "svn-config-tool" %*
