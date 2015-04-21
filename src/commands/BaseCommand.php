@@ -25,6 +25,13 @@ abstract class BaseCommand extends Command
         $this->output->writeln('<error>[!]</error> ' . $text);
     }
 
+    protected function writeQuitError( $text, $code = 1 )
+    {
+        $this->writeError($text, true);
+        $this->output->writeln('<error>Doing nothing more and exiting!</error>');
+        exit($code);
+    }
+
     protected function writeDebug( $text )
     {
         if ( $this->output->isDebug() )
