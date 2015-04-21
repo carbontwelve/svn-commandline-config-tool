@@ -47,9 +47,15 @@ class SvnDirectoryParser
         return (int) $this->repositoriesFound;
     }
 
+    /**
+     * @return array
+     */
     public function getFoundRootRepositories()
     {
-        return $this->rootRepositoryDirectories;
+        $return = array();
+        arsort($this->rootRepositoryDirectories);
+        array_walk_recursive($this->rootRepositoryDirectories, function($a) use (&$return) { $return[] = $a; });
+        return $return;
     }
     /**
      * @param string $dir
@@ -64,6 +70,22 @@ class SvnDirectoryParser
         }
 
         return $dir;
+    }
+
+    /**
+     * Check to see if a dir has child repositories or not...
+     *
+     * @param $dir
+     * @return bool
+     */
+    private function hasChildren( $dir )
+    {
+        if ( in_array('format', scandir( $dir ) ) )
+        {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -96,9 +118,7 @@ class SvnDirectoryParser
                     'children'     => null
                 );
 
-                $children = $this->recursiveSvnFinder( $initDir . DIRECTORY_SEPARATOR . $file, ($depth + 1) );
-
-                if ( $children === 'repo' )
+                if ( ! $this->hasChildren( $initDir . DIRECTORY_SEPARATOR . $file ) )
                 {
                     $tmp['isRepository'] = true;
                     $this->repositoriesFound++;
@@ -109,21 +129,30 @@ class SvnDirectoryParser
                         $svnLocation                        = new SvnLocation();
                         $svnLocation->location              = $file;
                         $svnLocation->SVNParentPath         = $initDir . DIRECTORY_SEPARATOR . $file;
-                        $this->rootRepositoryDirectories[]  = $svnLocation;
+                        $this->addRootRepositoryDirectory($depth, $svnLocation);
                         unset($svnLocation);
                     }
 
                 }else{
-                    $tmp['children']                    = $children;
-                    $svnLocation                        = new SvnLocation();
+                    $tmp['children']                        = $this->recursiveSvnFinder( $initDir . DIRECTORY_SEPARATOR . $file, ($depth + 1) );
+                    $svnLocation                            = new SvnLocation();
                     $svnLocation->setLocation("$initDir/$file", $this->dir);
-                    $svnLocation->SVNParentPath         = $initDir . DIRECTORY_SEPARATOR . $file;
-                    $this->rootRepositoryDirectories[]  = $svnLocation;
+                    $svnLocation->SVNParentPath             = $initDir . DIRECTORY_SEPARATOR . $file;
+                    $this->addRootRepositoryDirectory($depth, $svnLocation);
                     unset($svnLocation);
                 }
                 $output[] = $tmp;
             }
         }
         return $output;
+    }
+
+    private function addRootRepositoryDirectory( $level, SvnLocation $location )
+    {
+        if ( ! isset($this->rootRepositoryDirectories[$level]) ){
+            $this->rootRepositoryDirectories[$level] = array();
+        }
+
+        $this->rootRepositoryDirectories[$level][] = $location;
     }
 }

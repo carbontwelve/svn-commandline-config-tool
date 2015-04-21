@@ -26,7 +26,7 @@ class SvnLocation
      */
     public function getLocation()
     {
-        return "/" . $this->baseLocation . $this->location;
+        return str_replace(' ', '_', ( "/" . $this->baseLocation . $this->location ));
     }
 
     public function setLocation( $location, $baseDir )
