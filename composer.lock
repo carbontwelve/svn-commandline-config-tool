@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ef12d890fbcaf94099f875b3d678582c",
+    "hash": "9867cd2c0fcd5d1ddf4dfcd073d6908f",
     "packages": [
         {
             "name": "symfony/console",
@@ -65,18 +65,18 @@
             "time": "2015-04-11 08:55:16"
         },
         {
-            "name": "symfony/process",
+            "name": "symfony/filesystem",
             "version": "2.8.x-dev",
-            "target-dir": "Symfony/Component/Process",
+            "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Process.git",
-                "reference": "5c73c03223e922c3c5f2c4128984e82a44089bbc"
+                "url": "https://github.com/symfony/Filesystem.git",
+                "reference": "59a58a369bafa7c2ded4e0b08d726482be7a7e6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/5c73c03223e922c3c5f2c4128984e82a44089bbc",
-                "reference": "5c73c03223e922c3c5f2c4128984e82a44089bbc",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/59a58a369bafa7c2ded4e0b08d726482be7a7e6b",
+                "reference": "59a58a369bafa7c2ded4e0b08d726482be7a7e6b",
                 "shasum": ""
             },
             "require": {
@@ -93,7 +93,7 @@
             },
             "autoload": {
                 "psr-0": {
-                    "Symfony\\Component\\Process\\": ""
+                    "Symfony\\Component\\Filesystem\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -110,7 +110,7 @@
                     "email": "fabien@symfony.com"
                 }
             ],
-            "description": "Symfony Process Component",
+            "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
             "time": "2015-04-10 08:56:33"
         },
