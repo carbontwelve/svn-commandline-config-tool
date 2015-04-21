@@ -1,0 +1,15 @@
+{
+    "name": "carbontwelve/svn-commandline-config-tool",
+    "description": "SVN Command line config tool, for identifying svn directories and outputting apache config",
+    "require": {
+        "symfony/console": "3.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Dann",
+            "email": "simon.dann@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
