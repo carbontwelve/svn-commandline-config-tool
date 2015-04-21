@@ -1,5 +1,6 @@
 <?php namespace Carbontwelve\Svn\Commands;
 
+use Carbontwelve\Svn\Exceptions\ExitException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,7 +30,8 @@ abstract class BaseCommand extends Command
     {
         $this->writeError($text, true);
         $this->output->writeln('<error>Doing nothing more and exiting!</error>');
-        exit($code);
+
+        throw new ExitException($text, $code);
     }
 
     protected function writeDebug( $text )

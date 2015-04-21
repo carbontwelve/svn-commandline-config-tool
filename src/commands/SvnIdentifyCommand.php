@@ -79,8 +79,7 @@ class SvnIdentifyCommand extends BaseCommand
         }
         catch( \InvalidArgumentException $err )
         {
-            $this->writeError($err->getMessage(), true);
-            exit();
+            $this->writeQuitError($err->getMessage(), true);
         }
 
         return getenv('SVN_PATH');
